@@ -67,7 +67,20 @@
     - name: "{{ nexus_blob_names.mvn.blob }}"
     - name: "{{ nexus_blob_names.gitlfs.blob }}"
     - name: "{{ nexus_blob_names.yum.blob }}"
+<<<<<<< HEAD
   when: (nexus_data_dir_contents.stdout | length == 0) and nexus_delete_default_blobstore
+=======
+  when: nexus_data_dir_contents.stdout == "" and nexus_delete_default_blobstore
+
+- include: setup_ldap_each.yml
+  with_items: "{{ ldap_connections }}"
+
+- include: create_content_selector_each.yml
+  with_items: "{{ nexus_content_selectors }}"
+
+- include: setup_privilege_each.yml
+  with_items: "{{ nexus_privileges }}"
+>>>>>>> master
 
 - block:
     - include_tasks: setup_ldap_each.yml

@@ -28,9 +28,13 @@ _(Created with [gh-md-toc](https://github.com/ekalinin/github-markdown-toc))_
          * [Audit capability](#audit-capability)
          * [Reverse proxy setup](#reverse-proxy-setup)
          * [LDAP configuration](#ldap-configuration)
+<<<<<<< HEAD
          * [Privileges](#privileges)
          * [Roles](#roles)
          * [Users](#users)
+=======
+         * [Privileges, roles and users](#privileges-roles-and-users)
+>>>>>>> master
          * [Content selectors](#content-selectors)
          * [Blobstores and repositories](#blobstores-and-repositories)
          * [Scheduled tasks](#scheduled-tasks)
@@ -472,6 +476,28 @@ Ldap users are not removed. Trying to set roles on a non existing user will resu
 For more info on Content selector see [documentation](https://help.sonatype.com/repomanager3/configuration/repository-management#RepositoryManagement-ContentSelectors)
 
 To use content selector add new privilege with `type: repository-content-selector` and proper `contentSelector`
+```yaml
+- name: docker-login-privilege
+  type: repository-content-selector
+  contentSelector: docker-login
+  description: 'Login to Docker registry'
+  repository: '*'
+  actions:
+  - read
+  - browse
+```
+
+### Content selectors
+```yaml
+  nexus_content_selectors:
+  - name: docker-login
+    description: Selector for docker login privilege
+    search_expression: format=="docker" and path=~"/v2/"
+```
+
+For more info on Content selector see [documentation](https://help.sonatype.com/repomanager3/configuration/repository-management#RepositoryManagement-ContentSelectors)
+
+To use content selector add new privilege with `type: repository-content-selector` and proper `contentSelector` 
 ```yaml
 - name: docker-login-privilege
   type: repository-content-selector
